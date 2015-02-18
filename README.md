@@ -7,6 +7,7 @@ The following is a generic Sudoku puzzle class that generates puzzles
 given an input file containing a puzzle such as the following:
 
 0 3 2 0 0 8 9 1 4
+
 0 0 0 0 0 0 0 0 3
 0 0 7 1 0 0 0 2 6
 0 0 8 0 7 6 0 0 0
