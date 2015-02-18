@@ -1,5 +1,5 @@
 # Sudoku
-John Rocha 
+John Rocha   
 CSE 20212 -- Lab 5
 
  
