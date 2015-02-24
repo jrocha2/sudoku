@@ -1,0 +1,60 @@
+John Rocha
+CSE 20212 -- Lab 5 Report
+
+
+Repository link: https://github.com/jrocha2/sudoku
+
+
+Upon running the program, the user is shown the initial state of the board and is 
+prompted as to which row and column they would like to add a value to. Assuming
+a 9x9 board (although it works for all square sizes), the user would input indices
+between 0 and 8. Next, they are asked to input what they would like to put in that spot.
+If the value they input is not able to be placed there due to the traditional sudoku rules,
+an error message will appear, the square will not be filled, and they can try again. On
+the other hand, if it is a valid move, the board will update on the screen. This is all
+also assuming they are not trying to alter the original board which would throw an error
+also. To finish the game, the user must either fill out the board completely or enter -1.
+
+Internally, the interactive game is all held within the play() function and its use of 
+the Puzzle class's data and member functions. Within the play() function, a while loop
+simulates the various interactions of the game as long as the game is not over, monitored
+by the isGameover() function which just checks to see that the board is completely filled.
+At the beginning of every move, the current state of the board is displayed using the
+display() function. Next, the user inputs where and what to place on the board. Next,
+the program checks to see if the move is valid by first checking that they are not
+modifying the original board represented by the vector of vectors, originalBoard. Next,
+the program runs the checkValidity() function which within it, runs checkVertical(), 
+checkHorizontal(), and checkMiniGrid(). These functions all do exactly what their names
+imply under the traditional sudoku rules. If any of these functions return
+true, then checkValidity() returns a number other than 0 and an error message
+is printed to the user saying that the move is invalid. Otherwise, the value
+is successfully added to the board. At the end of this loop, the isGameover()
+function is run in order to know if the user should be congratulated. In this
+way, the user plays until they either win or they quit. 
+
+First, the program was verified by attempting to enter all the types of
+invalid moves that the program specifically checks for. After realizing that
+those functions worked/fixing things that needed to be fixed, I had to confirm
+that the program would properly detect when the game had been won. Thus, I
+took the input and solved it with the help of an online solver. Next, I input
+the correct values into the program one at a time to make sure that no
+erroneous errors were thrown. In the end, I was able to input all of the
+values without trouble and the game successfully ended, so I knew that it was
+verified.
+
+After much work, I think that I was able to implement the templated aspect of
+the program well. The only thing I could further do would be to check that
+the input of the user belongs on the board altogether. But this is hard to do
+without knowing what type of puzzle is being created unless I customized the
+input files to first read in all the different possible values that might be
+in the puzzle. Other than that, I was able to work around knowing the type by
+just using values of type T in my functions that check validity. In this way,
+I just checked that the appropriate values in the rest of the puzzle did not
+equal the type T value that the user was trying to insert into the board. I
+also think I did well to preserve the idea that this Puzzle class could be
+used for any size of square board. I simply always worked around the size of
+one the of row vectors because it would represent the length and width of the
+whole board. In this way, checkVertical() and checkHorizontal() check
+correctly until the end of the board, and even checkMiniGrid() even checks the
+mini grids of appropriate size. Overall, doing it this way required more
+thinking, but now the class has more versatility.
