@@ -2,8 +2,8 @@
 John Rocha   
 CSE 20212 -- Lab 5
 
- 
-The following is a generic Sudoku puzzle class that generates puzzles 
+### The Puzzle Class 
+The included puzzle.h is a generic Sudoku puzzle class that generates puzzles 
 given an input file containing a puzzle such as the following:
 
 0 3 2 0 0 8 9 1 4  
@@ -18,9 +18,11 @@ given an input file containing a puzzle such as the following:
 
 
 where the 0's represent blank spaces and the rest of the numbers are
-displayed on the board.
+displayed on the board. It is templated such that one may create a board of integers or characters.
+The board can also vary in size as long as its width and length are both the same perfect square (4x4, 9x9, 16x16, etc).
 
-Included in the main program will be an interactive mode that allows
+Included in the class is a play() function that simulates an interactive mode allowing
 the user to fill in a Sudoku puzzle while making sure that the user
-adheres to the traditional Sudoku rules. In the end, the program will
-tell the user whether they solved the puzzle correctly or not. 
+adheres to the traditional Sudoku rules. In the end, the program will tell the user if they have
+successfully completed the puzzle. The included main.cpp demos a board of chars and then continues on to intiate a game
+of 9x9 sudoku. 
