@@ -31,10 +31,30 @@ The SudokuSolver class is designed to solve traditional 9x9 sudoku puzzles conta
 
 ### Determining Which Moves Are Possible Where
 At the heart of a solver is being able to keep track of which moves are currently possible for every space on the board. Besides solving with recursion, any algorithm that wishes to employ logic requires the ability to access and update such data. I created a 3D vector called possibles for just this purpose. The first two dimensions serve to mirror the game board while the third dimension holds ten integer elements that are either a 0 or 1. Disregarding element 0, the index of this third dimension corresponds to the possibility that that index value is able to be placed in that row and column of the board. 
-Examine the following example line of code:
+Examine the following code snippet that can be found throughout the implementation of the class:
 ````c++
 possibles[row][column][k]
 ````
 At all times in the solver program, this points to either a 0 or 1. If it contains a 0, this means that the point *(row,column)* on the board is not able to hold the number *k*. Likewise, if it contains a 1, then *k* is a possible value to fill in that box. By constantly updating this 3D vector with algorithms, the solver seeks to solve the board a square at a time providing more and more data to itself until the entire board is solved.
 
-
+### Scanner Algorithm
+The first algorithm I employ is a scanner algorithm that, given a point on the board, checks to see what possible values can be placed there. Then, if it counts that there is only one value able to be placed there it places it there.
+````c++
+int SudokuSolver :: scannerAlg(int row, int column) {
+ 
+    int numOfPossibles = 9, lastFound = 0;
+  
+    for (int i = 1; i <= 9; i++) {
+        if (checkValidity(i,row,column)) {
+            possibles[row][column][i] = 0;
+            numOfPossibles--;
+        }else
+            lastFound = i;
+    }
+  
+    if (numOfPossibles == 1)
+        return lastFound;
+    else
+        return 0;
+  }
+````
