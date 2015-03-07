@@ -1,0 +1,57 @@
+John Rocha
+CSE 20212 -- Lab 6 Report
+
+There is not much for the user to do in this program. They can change the puzzle input
+in the main program if they would like, but then upon running the program, it simply
+displays the unsolved and newly solve sudoku puzzle.
+
+Internally, the SudokuSolver class is a derived class of Puzzle in order to inherit the
+board, validity functions, and display function. Of course this means we changed the previously
+private information to be protected in the Puzzle class. Upon instatiating a solver, we not only
+create algorithm functions, we also create a 3D vector to act as a reference of what values
+are possible to be placed where. The constructor initializes this by setting all the possibilities
+equal to one unless they are part of the given board, because in that case nothing is possible to be
+placed there given there is already something correct there. The main solve() function simply 
+utilizes this 3D vector along with algorithm functions to methodically eliminate possibilities
+from boxes.
+    The most basic algorithm is called scannerAlg() and it just take in a box and iterates all through
+    all the possible values that can be placed in it (1-9). Using the checkValidity() function of the
+    puzzle class, it updates the 3D possibles vector if it sees that a value wouldn't be valid in that
+    box. At the end of the 9 iterations, it checks to see just how many values were able to be put
+    in that box, and if it is only 1, then that box most hold that one value, and it would update
+    the solution board accordingly. For the easy puzzle, this just iterates using the clues it finds
+    to eliminate more and more possibilities until the board is solved.
+    The second more complicated algorithm used was the singleton or hidden single algorithm. Basically,
+    it examines a row and determines which possibilities are present in the row and how many of each are 
+    there. If there is a value that is only possible one time as opposed to the other possibilities, then
+    we can deduce that the single possibility must be placed in that spot because it has no where else
+    to be placed. My singletonAlgRows() function does this by first storing all unsolved column numbers
+    to a vector. Then it iterates through the vector tallying up the number of times each possibility is
+    actually possible. Then it simply searches that count array to see if one and only one possibility is
+    only possible one time. If so, then that value is the singleton and it returns the value as well as
+    the row and column it should be placed in. If not, it just returns a vector with all 0's. This
+    row-evaluating singleton along with the scannerAlg() was enough to solve the medium puzzle. 
+    In order to solve the coder challenge puzzle, I simply recreated similar algorithms to this, but 
+    instead of looking for singletons in rows, one looked down each column while another looked in
+    each mini grid. Implementing these was enough to solve the intial hard puzzle.
+Thus, the solve() function would be able to solve the listed puzzles by just calling these functions
+until the board was filled. In order to maximize efficiency, I created an exhausted variable to make sure
+that the scannerAlg() ran until it couldn't find anything else, and then it would move on to the singleton
+algorithms until they couldn't find anything else. This would go back and forth until the puzzle was
+solved. 
+
+My program was verified by simply running the given puzzles and checking that the answers were the
+same as those found in an online sudoku solver. I also ran "fiendish" puzzles to ensure that my
+algorithms were not just inserting random values, but were rather actually solving the puzzle
+given very specific rules. When these extremely difficult puzzles would come out incomplete. I knew
+that my algorithms were doing exactly what they were intended to do and only solving what they could
+of the puzzle through logic.
+
+As i said above, my solver was implemented just by running my algorithm functions as long as they
+were still finding new solution values to update the board. I utilizing the checkValidity function
+of my puzzle class eased a lot of potential code, but I also felt like I maybe had too much code
+for all the different singletons. While it does work, its a shame that the algorithms don't differ
+too much from each other yet I still needed to write separate functions for each of them. As far as I
+know, this code should be able to solve any puzzle that is solvable by these two algorithms alone. Any
+other puzzles that might require backtracking or more complicated checks would require more
+algorithm functions. 
