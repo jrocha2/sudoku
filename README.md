@@ -38,7 +38,7 @@ possibles[row][column][k]
 At all times in the solver program, this points to either a 0 or 1. If it contains a 0, this means that the point *(row,column)* on the board is not able to hold the number *k*. Likewise, if it contains a 1, then *k* is a possible value to fill in that box. By constantly updating this 3D vector with algorithms, the solver seeks to solve the board a square at a time providing more and more data to itself until the entire board is solved.
 
 ### Scanner Algorithm
-The first algorithm I employ is a scanner algorithm that, given a point on the board, checks to see what possible values can be placed there. Then, if it counts that there is only one value able to be placed there, it must be the case that that value belongs there, and so it inserts it into the board.
+The first algorithm I employ is a scanner algorithm that, given a point on the board, checks to see what possible values can be placed there. Then, if it counts that there is only one value able to be placed there, it must be the case that that value belongs there, and so it returns that value.
 ````c++
 int SudokuSolver :: scannerAlg(int row, int column) {
  
