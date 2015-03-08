@@ -59,3 +59,6 @@ int SudokuSolver :: scannerAlg(int row, int column) {
   }
 ````
 Not only does this algorithm count a space's possibilities, it is also updating the possibles 3D vector by checking a given value's validity with the Puzzle class's *checkValidity()* function. In this way, even if it not able to deduce enough to place a correct value on the board, it at least updates the possibles vector for future reference. 
+
+### Singleton Algorithm (The Hidden Single)
+The second algorithm I employ allows the solver to solve medium puzzles as well as some difficult ones. Known to most as finding the "hidden single," 
