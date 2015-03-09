@@ -3,6 +3,7 @@ John Rocha
 CSE 20212 -- Lab 5 and Lab 6
 
 ## The Puzzle Class 
+ ![Play](screenshots/playpuzzle.png?raw=true)  
 The included puzzle.h in PuzzleClass is a generic Sudoku puzzle class that generates puzzles 
 given an input file containing a puzzle such as the following:
 
@@ -27,6 +28,7 @@ successfully completed the puzzle. The included main.cpp and makefile demo a boa
 
 
 ## The SudokuSolver Class
+![Solve](screenshots/solver.png?raw=true)  
 The SudokuSolver class is designed to solve traditional 9x9 sudoku puzzles containing integers. It is derived from the above Puzzle class and thus inherits access to the game board as well as all of the useful functions that check if a given move is valid. 
 
 ### Determining Which Moves Are Possible Where
