@@ -61,4 +61,35 @@ int SudokuSolver :: scannerAlg(int row, int column) {
 Not only does this algorithm count a space's possibilities, it is also updating the possibles 3D vector by checking a given value's validity with the Puzzle class's *checkValidity()* function. In this way, even if it not able to deduce enough to place a correct value on the board, it at least updates the possibles vector for future reference. 
 
 ### Singleton Algorithm (The Hidden Single)
-The second algorithm I employ allows the solver to solve medium puzzles as well as some difficult ones. Known to most as finding the "hidden single," 
+The second algorithm I employ allows the solver to solve medium puzzles as well as some difficult ones. Known to most as finding the "hidden single," this algorithm examines the unsolved boxes in a given row, column, or minigrid. It goes through the possibles 3D vector and counts all of the possibilities in said row/column/minigrid. If there is a possibility that is valid in one box, but not any of the others, then it must be the case that that possibility belongs there. 
+````c++
+    for (iter = unsolved.begin(); iter != unsolved.end(); ++iter)
+        for (int k = 1; k <= 9; k++)
+            if (possibles[row][*iter][k]) // if k possible in (row,*iter), add to potentialSpots
+                potentialSpots[k]++;
+  
+  
+    for (int i = 1; i <= 9; i++) {  // iterates through potentialSpots[] to see if hidden single
+        if (potentialSpots[i] == 1 && singleton > 0) {
+            singleton = 0;
+            break;
+        }else if (potentialSpots[i] == 1)
+            singleton = i;
+    }
+  
+  
+    if (singleton)          // if hidden single and valid move, add to board as solved
+        for (int j = 0; j < 9; j++)
+            if (possibles[row][j][singleton] == 1 && !checkValidity(singleton,row,j)) {
+                solved[0] = row;
+                solved[1] = j;
+                solved[2] = singleton;
+                return solved;
+            }
+````
+The above is just a part of the algorithm, but it shows the use of another vector called potentialSpots as well as how this function returns information. PotentialSpots is simply a 10 element vector, and every time an element is possible in a given
+row/column/minigrid, it increments potentialSpots at that index. The second for() loop examines this vector, and upon finding that there is one and only one "singleton" or "hidden single," it stores that value. Finally, the algorithm returns its findings in the form of a 3-element vector that contains the solved value as well as the row and column where it belongs. This specific example is taken from the simpleton algorithm that examines each row of the board. In order to solve the harder puzzles, the program also contains two more similar algorithms for examinings down each column and within each minigrid.
+
+###Possible Improvements
+Simply applying the two algorithms above is enough to solve easy, medium, and even some hard difficulty sudoku puzzles. However, the most challenging sudoku puzzles employ many different combinations that can only be solved with many algorithms. Of course, there comes a point when programming all of these algorithms becomes inefficient when a computer might be able to solve the puzzle by different methods. The fastest solvers to date employ recursion and/or backtracking that allows the computer to solve the whole puzzle at seemingly one time rather than pick and choose which values it is able to solve. Perhaps I will implement such a function in the future in order to create a program that can solve every sudoku puzzle.
+
